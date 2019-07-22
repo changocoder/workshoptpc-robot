@@ -16,7 +16,9 @@ class Obstaculo(object):
   tamanio  (private)
 
   """
-
+  def __init__(self, size):
+      self.tamanio = size
+      
   def formar(self):
     """
      

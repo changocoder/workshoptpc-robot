@@ -17,7 +17,9 @@ class Robot(object):
   velocidad  (private)
 
   """
-
+  def __init__(self, velocidad):
+      self.velocidad=velocidad
+      
   def decidir(self):
     """
      
