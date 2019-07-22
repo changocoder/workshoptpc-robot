@@ -8,7 +8,7 @@ class Laberinto(object):
    
 
   :version:
-  :author:
+  :author: Lucas y Hugo
   """
 
   """ ATTRIBUTES
