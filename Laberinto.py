@@ -27,13 +27,19 @@ class Laberinto(object):
 
    
 
-  lista_obstaculos_  (private)
+  lista_obstaculos  (private)
 
    
 
   mapa_laberinto_  (private)
 
   """
+  
+  def __init__(self, Robot, size_x, size_y, lista_obstaculos):
+      self.ada_boot=None
+      self.lista_obstaculos=[]
+      self.size_x=size_x
+      self.size_y
 
   def generar_solucion(self):
     """
@@ -53,10 +59,8 @@ class Laberinto(object):
     """
     pass
 
-  def generar_ada(self, ada_robot):
+  def generar_ada(self, Robot):
     """
-     
-
     @param Robot ada_robot : 
     @return  :
     @author
