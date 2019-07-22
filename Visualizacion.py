@@ -1,10 +1,13 @@
 # coding=UTF-8
 from Laberinto import *
+"""
+probando hacer un commit
+"""
 
 class Visualizacion(object):
 
   """
-   
+
 
   :version:
   :author:
@@ -12,7 +15,7 @@ class Visualizacion(object):
 
   """ ATTRIBUTES
 
-   
+
 
   laberinto  (private)
 
@@ -20,12 +23,9 @@ class Visualizacion(object):
 
   def graficar(self):
     """
-     
+
 
     @return  :
     @author
     """
     pass
-
-
-
