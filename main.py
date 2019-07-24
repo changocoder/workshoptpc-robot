@@ -22,9 +22,9 @@ VERDE = ( 0, 255, 0)
 ROJO = (255, 0, 0)
 
 
-PIXEL_size = 20
-WIDTH = 800
-HEIGHT = 600
+PIXEL_size = 10
+WIDTH = dim_x*PIXEL_size
+HEIGHT = dim_y*PIXEL_size
 
 #-------------INICIALIZACION DE GRAFICOS-----------------
 pygame.init()
