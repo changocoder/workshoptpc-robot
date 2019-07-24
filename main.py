@@ -5,16 +5,27 @@ from Visualizacion import *
 import pygame, sys
 from pygame.locals import *
 #Importo asi para usar pygame.event (https://www.pygame.org/docs/ref/locals.html)
+if __name__ == "__main__":
+    ada_bot = Robot()
+    laberinto = Laberinto(10,10)
 
+laberinto.generar_obstaculos()
+laberinto.generar_ada(ada_bot)
+#Primer sensado para ada_BOT
+sensor = laberinto.get_vecinos()
+print(sensor)
+print (laberinto.mapa)
+ada_bot.sensar(sensor)
+#index devuelve el primer lugar en lista del objeto que busco
+first_front=sensor.index(0)
+ada_bot.direccion[first_front] = 1
+print(ada_bot.direccion)
+ada_bot.seguir_pared()
 
-dim_x = 7
-dim_y = 7
-
-L = Laberinto(dim_x, dim_y)
-L.generar_solucion()
-mapa = laberinto.mapa
-
-
+'''    
+  
+'''                       
+'''
 # Definimos algunos colores
 NEGRO = (0, 0, 0)
 BLANCO = (255, 255, 255)
@@ -45,4 +56,5 @@ while True:
         if eventos.type == QUIT:
             sys.exit(0)
 
-    pygame.display.flip()
+    pygame.display.flip()  
+'''    
