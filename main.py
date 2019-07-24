@@ -28,7 +28,7 @@ HEIGHT = dim_y*PIXEL_size
 
 #-------------INICIALIZACION DE GRAFICOS-----------------
 pygame.init()
-pantalla = pygame.display.set_mode([WIDTH, HEIGHT])
+pantalla = pygame.display.set_mode([int(WIDTH), int(HEIGHT)])
 pygame.display.set_caption("Ada-BOT Maze")
 reloj = pygame.time.Clock()
 #--------------------------------------------------------
