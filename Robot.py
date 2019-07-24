@@ -40,7 +40,7 @@ class Robot(object):
         self.velocidad= 0
 
     #sensar is setter
-
+    
    
         
     def sensar(self, sensor):
@@ -64,6 +64,7 @@ class Robot(object):
         """ 
         self.direccion = direccion
 
+
     def set_velocidad(self):
         
         pass 
@@ -71,8 +72,6 @@ class Robot(object):
     def seguir_pared(self):
         """
         Toma de desiciones para salir del laberinto: algoritmo wall follow
-        
-
         @return  :
         @author
         
@@ -86,7 +85,7 @@ class Robot(object):
         if (sensor_front == 0):
             if(sensor_left != 0):
                 #self.dirección = self.direccion
-                pass
+                return 0
             
         else:
             if(sensor_left == 0):
@@ -94,7 +93,7 @@ class Robot(object):
                 moverse hacia la izquierda
                 """
                 self.direccion = turn_left(self.direccion)
-
+                return 3
             elif(sensor_left != 0):
                 if (sensor_right == 0):
                     """
@@ -102,14 +101,14 @@ class Robot(object):
                     permutación cíclica en dirección , mover el 1 al indice j-3
                     """
                     self.direccion = turn_right(self.direccion)
-                
+                    return 1
                 elif(sensor_right != 0):
                     """
                     moverse hacia atrás 
                     permutación cíclica en dirección, mover el 1 al índice j-2
                     """
                     self.direccion = turn_back(self.direccion)
-
+                    return 2
 #---------------------------------------------------------------------------------------------------
 #------------------------------------FUNCIONES------------------------------------------------------
 
