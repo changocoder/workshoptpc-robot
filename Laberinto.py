@@ -174,10 +174,20 @@ class Laberinto(object):
         """
         self.mapa[self.x_ini][self.y_ini]=3
 
-    def actualizar_laberinto(self, x, y):
+    def actualizar_laberinto(self, n):
         """
-        @return : actualizar matriz despues 
-        @author: 
+        @return : actualizar matriz despues del movimiento del robot 
+        @author Hugo y Lucas: 
         """
-        pass
-
+        pos_robot=list(zip(np.where(self.mapa==3))) #Busca en el mapa donde esta el robot y lo mete en una lista
+        pos_robot_x= pos_robot[0][0][0]
+        pos_robot_y= pos_robot[1][0][0]
+        self.mapa[pos_robot_x][pos_robot_y]=0
+        if n ==0:
+            self.mapa[pos_robot_x-1][pos_robot_y]=3
+        if n ==1:
+            self.mapa[pos_robot_x][pos_robot_y+1]=3
+        if n ==2:
+            self.mapa[pos_robot_x+1][pos_robot_y]=3
+        if n ==3:
+            self.mapa[pos_robot_x][pos_robot_y-1]=3
