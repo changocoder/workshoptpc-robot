@@ -1,6 +1,8 @@
 # coding=UTF-8
+
 from Robot import *
 from Obstaculo import *
+
 import numpy as np  
 from random import randrange
 
@@ -22,8 +24,8 @@ class Laberinto(object):
         self.dim_y=dim_y 
         self.x_ini=0
         self.y_ini=0
-        self.mapa= np.ones((self.dim_x+2,self.dim_y+2)) 
         self.vecinos=np.full(4,5)
+        self.mapa = np.full((self.dim_x + 2, self.dim_y + 2), 2)
 
     def generar_solucion(self):
         """
@@ -114,7 +116,55 @@ class Laberinto(object):
         @return  :
         @author
         """
-        pass
+        """
+        @return  :
+        @author Hugo Chanampe
+        codificacion del mapa
+        
+        0 - solucion
+        1 - pared
+        2 - obstaculos
+        
+        
+        """
+        x = self.dim_x + 2
+        y = self.dim_y + 2
+
+        """
+        se establecen las paredes de los bordes de la matriz, seteando estos en 1
+        """        
+        self.mapa[0,:] = 1
+        self.mapa[:,0] = 1
+        self.mapa[(self.dim_x+1),:] = 1
+        self.mapa[:,(self.dim_y+1)] = 1
+        
+        """ Se genera la solucion del laberinto, invocando el metodo generar_solucion """
+        self.generar_solucion()
+        
+        """ se rellena el resto del array"""
+        np.place(self.mapa, self.mapa==2, np.arange(0,3))
+        #cantidad_obstaculos = np.count_nonzero(self.mapa==2)
+        
+        
+        #it = np.nditer(self.mapa, flags=['multi_index'], op_flags=['writeonly'])
+        #while not it.finished:
+        #    print("%d <%d>" % (it[0], it.index), end=' ')
+        #    it.iternext()
+
+        #print(cantidad_obstaculos)
+        
+        
+        
+    def generar_estructura_laberinto(self):
+        """
+        Este metodo devuelve el array para poder generar el laberinto
+        @return  :self.mapa
+        @author Hugo Chanampe
+        """
+        self.generar_obstaculos
+        return self.mapa
+        
+            
 
     def generar_ada(self, ada_robot):
         """
