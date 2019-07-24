@@ -22,7 +22,8 @@ class Laberinto(object):
         self.dim_y=dim_y 
         self.x_ini=0
         self.y_ini=0
-        self.mapa= np.ones((self.dim_x+2,self.dim_y+2))
+        self.mapa= np.ones((self.dim_x+2,self.dim_y+2)) 
+        self.vecinos=np.full(4,5)
 
     def generar_solucion(self):
         """
@@ -85,6 +86,29 @@ class Laberinto(object):
                 salida="true"
             elif y ==(self.dim_y+1):
                 salida="true"   
+    
+    def get_vecinos(self):
+        """
+        @return:return la lista de vecinos actualizada para que el robot sepa que tiene en su entorno 
+        @author: Lucas Farigliano
+        Busca la ubicación del robot y devuelve los cuatro vecinos, hay que controlar que pasa cuendo el 
+        robot esta en la salida, porque un vecino saldria del arreglo
+        """
+        pos_robot=list(zip(np.where(self.mapa==3))) #Busca en el mapa donde esta el robot y lo mete en una lista
+        pos_robot_x= pos_robot[0][0][0]
+        pos_robot_y= pos_robot[1][0][0]
+        n_0=self.mapa[pos_robot_x-1][pos_robot_y]
+        n_1=self.mapa[pos_robot_x][pos_robot_y+1]
+        n_2=self.mapa[pos_robot_x+1][pos_robot_y]
+        n_3=self.mapa[pos_robot_x][pos_robot_y-1]
+        self.vecinos[0]=n_0
+        self.vecinos[1]=n_1
+        self.vecinos[2]=n_2
+        self.vecinos[3]=n_3
+
+        return self.vecinos
+
+
     def generar_obstaculos(self):
         """
         @return  :
@@ -109,7 +133,3 @@ class Laberinto(object):
         """
         pass
 
-        '''
-        laberinto debe tener get_neighbor_map (devuelve lista de 4 0 o 1)
-                      
-        '''
