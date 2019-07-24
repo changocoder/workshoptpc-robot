@@ -40,6 +40,9 @@ class Robot(object):
         self.velocidad= 0
 
     #sensar is setter
+
+   
+        
     def sensar(self, sensor):
     
         """
@@ -133,26 +136,3 @@ def turn_back(direccion):
 def turn_left(direccion):
     return [direccion[i-3] for i in range(len(direccion))]
 
-#MAIN BORRADOR: PASAR A SANTI
-"""
-if __name__ == "__main__":
-    ada_bot = Robot()
-    laberinto = Laberinto()
-    
-    
-    
-    """Primer sensado para ada_BOT 
-    sensor = laberinto.get_vecinos()"""
-    
-    ada_bot.sensar(laberinto.get_vecinos())
-    
-    
-    """index devuelve el primer lugar en lista del objeto que busco"""
-    first_front = ada_bot.slabyrinthnsor.index(0)
-    
-    ada_bot.direccion[first_front] = 1
-    
-    print(ada_bot.direccion)
-    
-    ada_bot.seguir_pared()
-"""    
