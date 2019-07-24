@@ -108,7 +108,7 @@ class Laberinto(object):
         self.vecinos[2]=n_2
         self.vecinos[3]=n_3
 
-        return self.vecinos
+        return self.vecinos.tolist()
 
 
     def generar_obstaculos(self):
@@ -169,17 +169,15 @@ class Laberinto(object):
     def generar_ada(self, ada_robot):
         """
         @param Robot ada_robot : 
-        @return  :
-        @author
+        @return  : Inicializar el robot en el laberinto
+        @author : Hugo, Gustavo, Lucas
         """
-        pass
+        self.mapa[self.x_ini][self.y_ini]=3
 
     def actualizar_laberinto(self, x, y):
         """
-        @param int x : 
-        @param int y : 
-        @return  :
-        @author
+        @return : actualizar matriz despues 
+        @author: 
         """
         pass
 
