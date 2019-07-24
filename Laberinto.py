@@ -154,16 +154,16 @@ class Laberinto(object):
         #print(cantidad_obstaculos)
         
         
-    '''      
+          
     def generar_estructura_laberinto(self):
         """
         Este metodo devuelve el array para poder generar el laberinto
         @return  :self.mapa
         @author Hugo Chanampe
         """
-        self.generar_obstaculos
+        self.generar_obstaculos()
         return self.mapa
-    '''    
+        
             
 
     def generar_ada(self, ada_robot):
