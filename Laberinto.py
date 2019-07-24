@@ -133,7 +133,7 @@ class Laberinto(object):
         
         
         
-    def generar_laberinto(self):
+    def generar_estructura_laberinto(self):
         """
         Este metodo devuelve el array para poder generar el laberinto
         @return  :self.mapa
