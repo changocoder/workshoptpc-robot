@@ -137,12 +137,12 @@ class Laberinto(object):
         self.mapa[:,0] = 1
         self.mapa[(self.dim_x+1),:] = 1
         self.mapa[:,(self.dim_y+1)] = 1
-        
+       
         """ Se genera la solucion del laberinto, invocando el metodo generar_solucion """
         self.generar_solucion()
         
         """ se rellena el resto del array"""
-        np.place(self.mapa, self.mapa==2, np.arange(0,3))
+        np.place(self.mapa, self.mapa==2, np.arange(0,2))
         #cantidad_obstaculos = np.count_nonzero(self.mapa==2)
         
         
