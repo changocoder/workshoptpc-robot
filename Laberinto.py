@@ -1,96 +1,8 @@
 # coding=UTF-8
+
 from Robot import *
 from Obstaculo import *
-<<<<<<< HEAD
-import numpy as np
-class Laberinto(object):
 
-    """
-    :version: Camino de la Solución. (requisito para que el laberinto tenga solución)
-    :author: Lucas Farigliano y Hugo Chanampe
-    """
-
-    """ ATTRIBUTES
-    
-       
-    
-    size_x  (private)
-    
-       
-    
-    size_y  (private)
-    
-       
-    
-    ada_boot  (private)
-    
-       
-    
-    lista_obstaculos_  (private)
-    
-    """
-
-    def __init__(self, dim_x, dim_y):
-        self.dim_x = dim_x
-        self.dim_y = dim_y
-        self.mapa = np.full((self.dim_x+2, self.dim_y+2), 2)
-
-    def generar_solucion(self):
-        """
-        @return  : el camino solución del laberinto
-        @author  Lucas Farigliano
-
-        La matriz parte de todos ceros. Lo primero que hace el método es
-        cambiar los 0 por 3 para que se pueda trabajar mas facilmente.
-        """
-    
-        pass
-
-    def generar_obstaculos(self):
-        """
-        @return  :
-        @author Hugo Chanampe
-        codificacion del mapa
-
-        2 - pared
-        1 - obstaculos
-        0 - solucion
-        """
-        x = self.dim_x - 2
-        y = self.dim_y - 2
-
-        cantidad_elementos_solucion = np.count_nonzero(self.mapa == 0)
-        cantidad_obstaculos = (self.dim_x*self.dim_y) - cantidad_elementos_solucion
-
-
-
-    def generar_ada(self, ada_robot):
-        """
-     
-
-        @param Robot ada_robot :
-        @return  :
-        @author
-        """
-        pass
-
-    def actualizar_laberinto(self, x, y):
-        """
-     
-
-        @param int x :
-        @param int y :
-        @return  :
-        @author
-        """
-        pass
-
-'''
- laberinto debe tener get_size (tamaño del laberinto)
-                      get_neighbor_map (devuelve lista de 4 0 o 1)
-'''
-
-=======
 import numpy as np  
 from random import randrange
 
@@ -112,7 +24,7 @@ class Laberinto(object):
         self.dim_y=dim_y 
         self.x_ini=0
         self.y_ini=0
-        self.mapa= np.ones((self.dim_x+2,self.dim_y+2))
+        self.mapa = np.full((self.dim_x + 2, self.dim_y + 2), 2)
 
     def generar_solucion(self):
         """
@@ -174,13 +86,63 @@ class Laberinto(object):
             elif y==0:
                 salida="true"
             elif y ==(self.dim_y+1):
-                salida="true"   
+                salida="true"
+
+
     def generar_obstaculos(self):
         """
         @return  :
         @author
         """
-        pass
+        """
+        @return  :
+        @author Hugo Chanampe
+        codificacion del mapa
+        
+        0 - solucion
+        1 - pared
+        2 - obstaculos
+        
+        
+        """
+        x = self.dim_x + 2
+        y = self.dim_y + 2
+
+        """
+        se establecen las paredes de los bordes de la matriz, seteando estos en 1
+        """        
+        self.mapa[0,:] = 1
+        self.mapa[:,0] = 1
+        self.mapa[(self.dim_x+1),:] = 1
+        self.mapa[:,(self.dim_y+1)] = 1
+        
+        """ Se genera la solucion del laberinto, invocando el metodo generar_solucion """
+        self.generar_solucion()
+        
+        """ se rellena el resto del array"""
+        np.place(self.mapa, self.mapa==2, np.arange(0,3))
+        #cantidad_obstaculos = np.count_nonzero(self.mapa==2)
+        
+        
+        #it = np.nditer(self.mapa, flags=['multi_index'], op_flags=['writeonly'])
+        #while not it.finished:
+        #    print("%d <%d>" % (it[0], it.index), end=' ')
+        #    it.iternext()
+
+        #print(cantidad_obstaculos)
+        
+        
+        
+    def generar_laberinto(self):
+        """
+        Este metodo devuelve el array para poder generar el laberinto
+        @return  :self.mapa
+        @author Hugo Chanampe
+        """
+        self.generar_obstaculos
+        return self.mapa
+        
+            
 
     def generar_ada(self, ada_robot):
         """
@@ -203,4 +165,4 @@ class Laberinto(object):
         laberinto debe tener get_neighbor_map (devuelve lista de 4 0 o 1)
                       
         '''
->>>>>>> 5558d560b3181e8fe9768b99cf6856cab42ae43d
+
