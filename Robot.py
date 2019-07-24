@@ -12,8 +12,6 @@ from Laberinto import *
 class Robot(object):
 
     """
-   
-
     :version:
     #no se que va aca
     :author:
@@ -21,27 +19,23 @@ class Robot(object):
     """
 
     """ ATTRIBUTES
-
-   
-
     position  (private)
-
     """
-      
+
     """     """
 
     def __init__(self):
         #position: inicio (origen de coordenadas para Ava)
-        """sensor 
+        """sensor
         """
         self.sensor=[0, 0 ,0 ,0]
         self.direccion= [0, 0, 0, 0]
-        #int: velocidad = 0 
+        #int: velocidad = 0
         self.velocidad= 0
 
     #sensar is setter
     def sensar(self, sensor):
-    
+
         """
         la variable sensor es tipo lista de 4 elementos: [ , , , ] y
         toma su valor del método get_vecinos de Laberinto
@@ -49,30 +43,30 @@ class Robot(object):
         @return  :
         @author
         """
-    
+
         self.sensor= sensor
-  
+
     def set_direccion(self, direccion):
         """
         direccion =  [arriba, derecha, abajo , izquierda]  indica hacia donde se va a mover el robot
-        comienza con None y el main produce el cambio 
+        comienza con None y el main produce el cambio
         @return  :
         @author
-        """ 
+        """
         self.direccion = direccion
 
     def set_velocidad(self):
-        
-        pass 
-       
+
+        pass
+
     def seguir_pared(self):
         """
         Toma de desiciones para salir del laberinto: algoritmo wall follow
-        
+
 
         @return  :
         @author
-        
+
         """
         j = np.nonzero(self.direccion)[0][0]
         sensor_front = self.sensor[j]
@@ -84,7 +78,7 @@ class Robot(object):
             if(sensor_left != 0):
                 #self.dirección = self.direccion
                 pass
-            
+
         else:
             if(sensor_left == 0):
                 """permutación cíclica en dirección , mover el 1 al indice anterior al que está
@@ -99,10 +93,10 @@ class Robot(object):
                     permutación cíclica en dirección , mover el 1 al indice j-3
                     """
                     self.direccion = turn_right(self.direccion)
-                
+
                 elif(sensor_right != 0):
                     """
-                    moverse hacia atrás 
+                    moverse hacia atrás
                     permutación cíclica en dirección, mover el 1 al índice j-2
                     """
                     self.direccion = turn_back(self.direccion)
@@ -134,25 +128,22 @@ def turn_left(direccion):
     return [direccion[i-3] for i in range(len(direccion))]
 
 #MAIN BORRADOR: PASAR A SANTI
-"""
-if __name__ == "__main__":
+    """
+    if __name__ == "__main__":
     ada_bot = Robot()
     laberinto = Laberinto()
-    
-    
-    
-    """Primer sensado para ada_BOT 
-    sensor = laberinto.get_vecinos()"""
-    
+    #Primer sensado para ada_BOT
+    sensor = laberinto.get_vecinos()
+
     ada_bot.sensar(laberinto.get_vecinos())
-    
-    
-    """index devuelve el primer lugar en lista del objeto que busco"""
+
+
+    #index devuelve el primer lugar en lista del objeto que busco
     first_front = ada_bot.slabyrinthnsor.index(0)
-    
+
     ada_bot.direccion[first_front] = 1
-    
+
     print(ada_bot.direccion)
-    
+
     ada_bot.seguir_pared()
-"""    
+    """
