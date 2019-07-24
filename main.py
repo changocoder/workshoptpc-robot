@@ -7,8 +7,8 @@ from pygame.locals import *
 #Importo asi para usar pygame.event (https://www.pygame.org/docs/ref/locals.html)
 
 
-dim_x = 7
-dim_y = 7
+dim_x = 50
+dim_y = 50
 
 laberinto = Laberinto(dim_x, dim_y)
 laberinto.generar_solucion()
@@ -22,9 +22,9 @@ VERDE = ( 0, 255, 0)
 ROJO = (255, 0, 0)
 
 
-PIXEL_size = 50
-WIDTH = 1000
-HEIGHT = 1000
+PIXEL_size = 20
+WIDTH = 800
+HEIGHT = 600
 
 #-------------INICIALIZACION DE GRAFICOS-----------------
 pygame.init()
@@ -35,12 +35,11 @@ reloj = pygame.time.Clock()
 
 matriz = np.random.rand(WIDTH/PIXEL_size, HEIGHT/PIXEL_size)
 #no_ceros = np.where(matriz<0.5)
-no_ceros = np.nonzero(mapa)
+mapa_unos = np.where(mapa==1)
 pantalla.fill(BLANCO)
 
-
-for j in range(len(no_ceros[0])):
-    pygame.draw.rect(pantalla, NEGRO,[no_ceros[0][j]*PIXEL_size, no_ceros[1][j]*PIXEL_size, PIXEL_size, PIXEL_size] )
+for j in range(len(mapa_unos[0])):
+    pygame.draw.rect(pantalla, NEGRO,[mapa_unos[0][j]*PIXEL_size, mapa_unos[1][j]*PIXEL_size, PIXEL_size, PIXEL_size] )
 c=pygame.PixelArray(pantalla)
 
 while True:
