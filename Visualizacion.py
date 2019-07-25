@@ -98,6 +98,9 @@ def cheaquear_cierre_ventana():
         if eventos.type == QUIT:
             sys.exit(0)
     return 0
+
+
+#def Visualizar(laberinto, robot, icono):
 #######################MAIN######################################
 """
 IMPORTANTE:
@@ -187,10 +190,8 @@ while True:
     new_xy = nuevo[i]                       #
     #########################################
     new_xy = (new_xy[0]*pixelSize, new_xy[1]*pixelSize)
-    reloj = pygame.time.Clock()
     posicion = icono.get_posicion()
-    condicion = True
-    print(new_xy)
+    reloj = pygame.time.Clock()
     while posicion != new_xy:
         cheaquear_cierre_ventana()
         tiempo = reloj.tick(60)
