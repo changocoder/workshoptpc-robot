@@ -2,6 +2,7 @@
 import pygame, sys
 from pygame.locals import *
 from Laberinto import *
+
 class Icono (pygame.sprite.Sprite):
     """
     ## Class Icono(pygame.sprite.Sprite)
@@ -60,8 +61,8 @@ class Icono (pygame.sprite.Sprite):
 
     def set_posicion(self, posicion):
         # Se usa para setear posicion inicial del robot
-        self.rect.left = posicion[0] * pixelSize
-        self.rect.top = posicion[1] * pixelSize
+        self.rect.left = posicion[1] * self.pixelSize
+        self.rect.top = posicion[0] * self.pixelSize
 
     def set_tamano(self, tamano):
         # setea el tamano de la imagen, en pixeles
@@ -78,11 +79,18 @@ class Icono (pygame.sprite.Sprite):
         # le doy un numero que se multiplica por la velocidad que viene por defecto
         self.velocidad = self.velocidad * velocidad
 
-    def set_direccion(self,direccion):
+    def set_direccion(self, n):
         # direccion en la cual se debe mover
         # direccion: (int, int)
         # valores posibles: (0,1), (-1,0), etc...
-        self.direccion = direccion
+        if n==0:
+            self.direccion = (-1,0)
+        if n==1:
+            self.direccion = (0,1)
+        if n==2:
+            self.direccion = (1,0)
+        if n==3:
+            self.direccion = (0,-1)
 
     def mover(self, tiempo):
         self.rect.left += self.direccion[0] * self.velocidad * tiempo
@@ -91,16 +99,16 @@ class Icono (pygame.sprite.Sprite):
     def get_posicion(self):
         # posicion actual
         return (self.rect.left, self.rect.top)
-####################### funciones ######################################
 
+    def condicion(self):
+        pass
+
+####################### funciones ######################################
 def cheaquear_cierre_ventana():
     for eventos in pygame.event.get():
         if eventos.type == QUIT:
             sys.exit(0)
     return 0
-
-
-#def Visualizar(laberinto, robot, icono):
 #######################MAIN######################################
 """
 IMPORTANTE:
@@ -109,7 +117,7 @@ DE ACA EN ADELANTE, TODO LO QUE ESTA RODEADO DE #### ES PORQUE
 NO VA EN EL MAIN POSTA, SINO QUE DEBE SER REEMPLAZADO
 """
 
-
+"""
 from Laberinto import *
 from Robot import *
 #from Visualizacion import *
@@ -210,3 +218,4 @@ while True:
     #########
     i += 1  #
     #########
+"""
