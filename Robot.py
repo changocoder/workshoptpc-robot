@@ -32,6 +32,7 @@ class Robot(object):
         self.direccion= [0, 0, 0, 0]
         #int: velocidad = 0
         self.velocidad= 0
+        self.esquina_atras_izquierda= False
 
     def set_sensar(self, sensor):
         """
@@ -57,6 +58,19 @@ class Robot(object):
     def set_velocidad(self):
 
         pass
+    
+    def buscar_pared(self, direccion):
+        """Si siguiendo la pared quedo rodeada de ceros entonces buscar pared
+        """
+        if(self.esquina_atras_izquierda == False):
+            #primer paso rodeada de super ceros metele derecho
+            self.buscar_pared(self.direccion)
+            
+        else:
+            #ya tengo un frente
+            self.turn_left(self.direccion)
+            
+        
 
     def seguir_pared(self):
         """
@@ -84,7 +98,7 @@ class Robot(object):
                 """permutación cíclica en el atributo dirección, mover el 1 al
                 indice anterior al que está moverse hacia la izquierda
                 """
-                self.direccion = turn_left(self.direccion)
+                self.direccion = self.turn_left(self.direccion)
 
             else:
                 print("quinto")
@@ -94,7 +108,7 @@ class Robot(object):
                     moverse hacia la derecha
                     permutación cíclica en dirección , mover el 1 al indice j-3
                     """
-                    self.direccion = turn_right(self.direccion)
+                    self.direccion = self.turn_right(self.direccion)
 
                 else:
                     print("fuck_it")
@@ -102,7 +116,7 @@ class Robot(object):
                     moverse hacia atrás
                     permutación cíclica en dirección, mover el 1 al índice j-2
                     """
-                    self.direccion = turn_back(self.direccion)
+                    self.direccion = self.turn_back(self.direccion)
 
         print("self.direccion: ", self.direccion)
 
