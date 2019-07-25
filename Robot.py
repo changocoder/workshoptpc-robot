@@ -33,9 +33,7 @@ class Robot(object):
         #int: velocidad = 0
         self.velocidad= 0
 
-    #sensar is setter
-    def sensar(self, sensor):
-
+    def set_sensar(self, sensor):
         """
         la variable sensor es tipo lista de 4 elementos: [ , , , ] y
         toma su valor del método get_vecinos de Laberinto
@@ -55,6 +53,7 @@ class Robot(object):
         """
         self.direccion = direccion
 
+
     def set_velocidad(self):
 
         pass
@@ -62,8 +61,6 @@ class Robot(object):
     def seguir_pared(self):
         """
         Toma de desiciones para salir del laberinto: algoritmo wall follow
-
-
         @return  :
         @author
 
@@ -75,75 +72,58 @@ class Robot(object):
 
         #caso que sigue de largo, ya tengo una dirección
         if (sensor_front == 0):
+            print("primero")
             if(sensor_left != 0):
+                #este pass stands for "seguir por donde venía"
                 #self.dirección = self.direccion
-                pass
-
+                print("segundo")
         else:
+            print("ptercero")
             if(sensor_left == 0):
-                """permutación cíclica en dirección , mover el 1 al indice anterior al que está
-                moverse hacia la izquierda
+                print("cuarto")
+                """permutación cíclica en el atributo dirección, mover el 1 al
+                indice anterior al que está moverse hacia la izquierda
                 """
                 self.direccion = turn_left(self.direccion)
 
-            elif(sensor_left != 0):
+            else:
+                print("quinto")
                 if (sensor_right == 0):
+                    print("sexto")
                     """
                     moverse hacia la derecha
                     permutación cíclica en dirección , mover el 1 al indice j-3
                     """
                     self.direccion = turn_right(self.direccion)
 
-                elif(sensor_right != 0):
+                else:
+                    print("fuck_it")
                     """
                     moverse hacia atrás
                     permutación cíclica en dirección, mover el 1 al índice j-2
                     """
                     self.direccion = turn_back(self.direccion)
 
-#---------------------------------------------------------------------------------------------------
-#------------------------------------FUNCIONES------------------------------------------------------
+        print("self.direccion: ", self.direccion)
 
+    def turn_right(self, direccion):
+        """
+        turn_right(direccion):
+            Toma la lista dirección y hace una permutacion cíclica de manera
+            que la nueva dirección sea hacia la derecha de la dirección anterior
 
-def turn_right(direccion):
-    """
-    turn_right(direccion):
-        Toma la lista direccion y hace una permutacion ciclica de manera
-        que la nueva direccion sea hacia la derecha de la direccion anterior
+            INPUT:
+            direccion: lista de 4 elementos (CEROS O UNOS)
 
-        INPUT:
-        direccion: lista de 4 elementos (CEROS O UNOS)
+            OUTPUT:
+            lista de 4 elementos
 
-        OUTPUT:
-        lista de 4 elementos
+            lo mismo para turn_back y turn_left
+        """
+        return [direccion[i-1] for i in range(len(direccion))]
 
-        lo mismo para turn_back y turn_left
-    """
-    return [direccion[i-1] for i in range(len(direccion))]
+    def turn_back(self, direccion):
+        return [direccion[i-2] for i in range(len(direccion))]
 
-def turn_back(direccion):
-    return [direccion[i-2] for i in range(len(direccion))]
-
-def turn_left(direccion):
-    return [direccion[i-3] for i in range(len(direccion))]
-
-#MAIN BORRADOR: PASAR A SANTI
-    """
-    if __name__ == "__main__":
-    ada_bot = Robot()
-    laberinto = Laberinto()
-    #Primer sensado para ada_BOT
-    sensor = laberinto.get_vecinos()
-
-    ada_bot.sensar(laberinto.get_vecinos())
-
-
-    #index devuelve el primer lugar en lista del objeto que busco
-    first_front = ada_bot.slabyrinthnsor.index(0)
-
-    ada_bot.direccion[first_front] = 1
-
-    print(ada_bot.direccion)
-
-    ada_bot.seguir_pared()
-    """
+    def turn_left(self, direccion):
+        return [direccion[i-3] for i in range(len(direccion))]
