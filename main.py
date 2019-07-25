@@ -1,7 +1,7 @@
 from Laberinto import *
 from Obstaculo import *
 from Robot import *
-from Visualizacion import *
+#from Visualizacion import *
 import pygame, sys
 from pygame.locals import *
 #Importo asi para usar pygame.event (https://www.pygame.org/docs/ref/locals.html)
@@ -16,17 +16,18 @@ print ("lala\n",laberinto.mapa)
 sensor = laberinto.get_vecinos()
 print(sensor)    
 while np.count_nonzero(sensor)==0:
-    ada_bot.sensar(sensor)
+    ada_bot.set_sensor(sensor)
     first_front=sensor.index(0) 
     laberinto.actualizar_laberinto(first_front)
     print ("inicial\n",laberinto.mapa)
     sensor = laberinto.get_vecinos()
     print(sensor)    
 
+
 '''    
 print ("inicial\n",laberinto.mapa)
 ada_bot.direccion[first_front] = 1
-ada_bot.sensar(sensor)
+ada_bot.set_sensor(sensor)
 #index devuelve el primer lugar en lista del objeto que busco
 first_front=sensor.index(0)
 ada_bot.direccion[first_front] = 1
@@ -36,7 +37,7 @@ salida = "false"
 while salida != "true":  # si encuentra alguna pared se termina la creacción del camino
     sensor = laberinto.get_vecinos()
     print(sensor)
-    ada_bot.sensar(sensor)
+    ada_bot.set_sensor(sensor)
     #index devuelve el primer lugar en lista del objeto que busco
     print ("adaantes\n",ada_bot.direccion)
     ada_bot.seguir_pared()
