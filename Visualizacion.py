@@ -181,8 +181,7 @@ while True:
     cheaquear_cierre_ventana()
     #########################################
     # ACA VA EL BLOQUE QUE TOMA LA DECISION.#
-    # ME DEVUELVE UNA DIRE
-    CCION             #
+    # ME DEVUELVE UNA DIRECCION             #
     icono.set_direccion(nueva_dir[i])       # Direccion inventada
     # ME DEVUELVE UNA NUEVA POSICION        #
     new_xy = nuevo[i]                       #
