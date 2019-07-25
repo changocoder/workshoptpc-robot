@@ -1,10 +1,11 @@
 from Laberinto import *
-from Obstaculo import *
+from Icono import *
 from Robot import *
 from Visualizacion import *
 import pygame, sys
 from pygame.locals import *
 #Importo asi para usar pygame.event (https://www.pygame.org/docs/ref/locals.html)
+
 
 
 #+++++++++++++++++++++ CREACION LABERINTO ++++++++++++++++++++++++++++++++++++++
@@ -14,33 +15,39 @@ laberinto = Laberinto(dim_x,dim_y)
 laberinto.generar_obstaculos()
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+# CREO Visualizacion
+pixelSize = 30
+visualizacion = Visualizacion(pixelSize)
+# inicializo graficos
+visualizacion.inicializar_visualizacion(dim_x, dim_y)
+
+
 #+++++++++++++++++++++ CREACION ROBOT ++++++++++++++++++++++++++++++++++++++++++
 ada_bot = Robot()
 laberinto.generar_ada(ada_bot)
 sensor = laberinto.get_vecinos()
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+#+++++++++++++++++++++ CREACION icono ++++++++++++++++++++++++++++++++++++++++++
+velocidad_inicial = 1
+icono = Icono()
+icono.set_posicion((laberinto.y_ini,laberinto.x_ini))
+icono.set_tamano((pixelSize, pixelSize))
+icono.set_velocidad(velocidad_inicial)
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 #+++++++++++++++++++++ INICIO VENTANA ++++++++++++++++++++++++++++++++++++++++++
 # creacion de pantalla: MAPA e ICONO
 # INPUTS
 pixelSize = 30
-velocidad_inicial = 1
+
 WIDTH = pixelSize * dim_x
 HEIGHT = pixelSize * dim_y
-# inicializo graficos
-pygame.init()
-pantalla = pygame.display.set_mode([WIDTH, HEIGHT])
-pygame.display.set_caption("Ada-BOT Maze")
-# CREACION INICIAL DEL GRAFICO DEL MAPA, y lo guardo para regraficar
-background = crear_visualizacion_mapa(pantalla, laberinto, pixelSize)
-visualizar_mapa(pantalla, background)
 
-# CRECION DEL ICONO
-icono = Icono()
-icono.set_posicion((laberinto.y_ini,laberinto.x_ini))
-icono.set_tamano((pixelSize, pixelSize))
-icono.set_velocidad(velocidad_inicial)
+# CREACION INICIAL DEL GRAFICO DEL MAPA, y lo guardo para regraficar
+visualizacion.crear_visualizacion_mapa()
+visualizacion.visualizar_mapa()
+
 # esto es: grafica icono.imagen en el rectangulo icono.rect
 pantalla.blit(icono.imagen,icono.rect)
 pygame.display.flip()
