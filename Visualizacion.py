@@ -2,16 +2,17 @@
 import pygame
 from pygame.locals import *
 from Laberinto import *
-
 class Icono (pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.rect = pygame.Rect((100,100), (20,20))
+        self.rect = pygame.Rect((1,1),(1,1))
         self.imagen = pygame.image.load('alien.jpeg')
-        #self.rect = self.imagen.get_rect()
         self.velocidad = 0.1
         self.direccion = (1,0)
 
+    def set_posicion(self, posicion):
+        self.rect.left = posicion[0]
+        self.rect.top = posicion[1]
 
     def set_tamano(self, tamano):
         """
@@ -24,6 +25,7 @@ class Icono (pygame.sprite.Sprite):
         """
         imagen = self.imagen.convert_alpha()
         self.imagen = pygame.transform.scale(imagen, tamano)
+        self.rect.size = tamano
 
     def set_imagen(self,archivo):
         self.imagen = pygame.image.load(archivo)
@@ -41,7 +43,7 @@ class Icono (pygame.sprite.Sprite):
         self.direccion = direccion
 
     def get_posicion(self):
-        return (self.rect.centerx, self.rect.centery)
+        return (self.rect.left, self.rect.top)
 
     def mover(self, tiempo):
         self.rect.centerx += self.direccion[0] * self.velocidad * tiempo
@@ -98,7 +100,7 @@ background = pantalla.convert()
 #----------------------CREACION DEL ICONO ROBOT----------------------------------
 icono = Icono()
 icono.set_imagen("./alien.jpeg")
-print(icono.rect, icono.get_posicion())
+icono.set_posicion((100,100))
 icono.set_tamano((PIXEL_size, PIXEL_size))
 print(icono.rect, icono.get_posicion())
 pantalla.blit(icono.imagen,icono.rect)
