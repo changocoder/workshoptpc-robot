@@ -32,7 +32,6 @@ class Robot(object):
         self.direccion= [0, 0, 0, 0]
         #int: velocidad = 0
         self.velocidad= 0
-        self.esquina_atras_izquierda= 0
 
 
     def set_sensor(self, sensor):
@@ -59,10 +58,11 @@ class Robot(object):
     def set_velocidad(self):
 
         pass
-    
+    """
     def buscar_pared(self, direccion, esquina_atras_izquierda):
-        """Si siguiendo la pared quedo rodeada de ceros entonces buscar pared
-        """
+        
+        #Si siguiendo la pared quedo rodeada de ceros entonces buscar pared
+        
         if(self.esquina_atras_izquierda == 0):
             #primer paso rodeada de super ceros metele derecho
             self.buscar_pared(self.direccion)
@@ -70,6 +70,7 @@ class Robot(object):
         else:
             #ya tengo un frente
             self.turn_left(self.direccion)
+    """
             
         
 
