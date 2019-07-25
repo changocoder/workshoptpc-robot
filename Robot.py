@@ -34,7 +34,7 @@ class Robot(object):
         self.velocidad= 0
         self.esquina_atras_izquierda= 0
 
-    def set_sensar(self, sensor):
+    def set_sensor(self, sensor):
         """
         la variable sensor es tipo lista de 4 elementos: [ , , , ] y
         toma su valor del método get_vecinos de Laberinto
