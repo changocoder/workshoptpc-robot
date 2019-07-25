@@ -41,7 +41,8 @@ while salida != "true":  # si encuentra alguna pared se termina la creacción de
     #index devuelve el primer lugar en lista del objeto que busco
     print ("adaantes\n",ada_bot.direccion)
     ada_bot.seguir_pared()
-    n=ada_bot.direccion.index(1)
+    direccion=ada_bot.get_direccion()
+    n=direccion.index(1)
     print ("adadespues\n",ada_bot.direccion)
     laberinto.actualizar_laberinto(n)
     print ("segpaso\n",laberinto.mapa)

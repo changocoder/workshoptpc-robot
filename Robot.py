@@ -87,27 +87,27 @@ class Robot(object):
 
         #caso que sigue de largo, ya tengo una dirección
         if (sensor_front == 0):
-            print("primero")
+            
             if(sensor_left != 0):
                 #este pass stands for "seguir por donde venía"
                 #self.dirección = self.direccion
-                print("segundo")
+                pass    
             else:
                 self.turn_left()
 
         else:
-            print("tercero")
+            
             if(sensor_left == 0):
-                print("cuarto")
+                
                 """permutación cíclica en el atributo dirección, mover el 1 al
                 indice anterior al que está moverse hacia la izquierda
                 """
                 self.turn_left()
 
             else:
-                print("quinto")
+                
                 if (sensor_right == 0):
-                    print("sexto")
+                    
                     """
                     moverse hacia la derecha
                     permutación cíclica en dirección , mover el 1 al indice j-3
@@ -115,14 +115,13 @@ class Robot(object):
                     self.turn_right()
 
                 else:
-                    print("fuck_it")
+                    
                     """
                     moverse hacia atrás
                     permutación cíclica en dirección, mover el 1 al índice j-2
                     """
                     self.turn_back()
 
-        print("self.direccion: ", self.direccion)
 
     def turn_right(self):
         """
@@ -148,3 +147,6 @@ class Robot(object):
     def turn_left(self):
         direccion = self.direccion
         self.direccion = [direccion[i-3] for i in range(len(direccion))]
+
+    def get_direccion(self):
+        return self.direccion
