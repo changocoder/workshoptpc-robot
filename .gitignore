@@ -1,3 +1,4 @@
 #ignore folders
 .idea/
 __pycache__/
+Obstaculo.py
