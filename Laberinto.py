@@ -26,6 +26,8 @@ class Laberinto(object):
         self.y_ini=0
         self.vecinos=np.full(4,5)
         self.mapa = np.full((self.dim_x + 2, self.dim_y + 2), 2)
+        self.pos_robot_x=0
+        self.pos_robot_y=0
 
     def generar_solucion(self):
         """
@@ -97,12 +99,12 @@ class Laberinto(object):
         robot esta en la salida, porque un vecino saldria del arreglo
         """
         pos_robot=list(zip(np.where(self.mapa==3))) #Busca en el mapa donde esta el robot y lo mete en una lista
-        pos_robot_x= pos_robot[0][0][0]
-        pos_robot_y= pos_robot[1][0][0]
-        n_0=self.mapa[pos_robot_x-1][pos_robot_y]
-        n_1=self.mapa[pos_robot_x][pos_robot_y+1]
-        n_2=self.mapa[pos_robot_x+1][pos_robot_y]
-        n_3=self.mapa[pos_robot_x][pos_robot_y-1]
+        self.pos_robot_x= pos_robot[0][0][0]
+        self.pos_robot_y= pos_robot[1][0][0]
+        n_0=self.mapa[self.pos_robot_x-1][self.pos_robot_y]
+        n_1=self.mapa[self.pos_robot_x][self.pos_robot_y+1]
+        n_2=self.mapa[self.pos_robot_x+1][self.pos_robot_y]
+        n_3=self.mapa[self.pos_robot_x][self.pos_robot_y-1]
         self.vecinos[0]=n_0
         self.vecinos[1]=n_1
         self.vecinos[2]=n_2
@@ -152,7 +154,23 @@ class Laberinto(object):
         #    it.iternext()
 
         #print(cantidad_obstaculos)
-        
+    
+    def controlar_escape(self):
+        """
+        Este metodo devuelve el array para poder generar el laberinto
+        @return  :self.mapa
+        @author Hugo Chanampe
+        """    
+        salida="false"
+        if self.pos_robot_x==0:     #Evaluar las condiciones para encontrar la salida (capaz que convenga crear un nuevo metodo para esto)
+            salida="true"
+        elif self.pos_robot_x ==(self.dim_x+1):
+            salida="true"
+        elif self.pos_robot_y==0:
+            salida="true"
+        elif self.pos_robot_y==(self.dim_y+1):
+            salida="true" 
+        return salida           
         
           
     def generar_estructura_laberinto(self):
@@ -180,14 +198,24 @@ class Laberinto(object):
         @author Hugo y Lucas: 
         """
         pos_robot=list(zip(np.where(self.mapa==3))) #Busca en el mapa donde esta el robot y lo mete en una lista
-        pos_robot_x= pos_robot[0][0][0]
-        pos_robot_y= pos_robot[1][0][0]
-        self.mapa[pos_robot_x][pos_robot_y]=0
+        self.pos_robot_x= pos_robot[0][0][0]
+        self.pos_robot_y= pos_robot[1][0][0]
+        self.mapa[self.pos_robot_x][self.pos_robot_y]=0
         if n ==0:
-            self.mapa[pos_robot_x-1][pos_robot_y]=3
+            self.mapa[self.pos_robot_x-1][self.pos_robot_y]=3
         if n ==1:
-            self.mapa[pos_robot_x][pos_robot_y+1]=3
+            self.mapa[self.pos_robot_x][self.pos_robot_y+1]=3
         if n ==2:
-            self.mapa[pos_robot_x+1][pos_robot_y]=3
+            self.mapa[self.pos_robot_x+1][self.pos_robot_y]=3
         if n ==3:
-            self.mapa[pos_robot_x][pos_robot_y-1]=3
+            self.mapa[self.pos_robot_x][self.pos_robot_y-1]=3
+       
+    def get_direccion_robot(self):
+        """
+        @return : True or False si el robot esta en la salida
+        @author Hugo 
+        """
+        pos_robot=list(zip(np.where(self.mapa==3))) #Busca en el mapa donde esta el robot y lo mete en una lista
+        self.pos_robot_x= pos_robot[0][0][0]
+        self.pos_robot_y= pos_robot[1][0][0]
+
