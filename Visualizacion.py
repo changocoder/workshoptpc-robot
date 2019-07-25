@@ -2,6 +2,7 @@
 import pygame, sys
 from pygame.locals import *
 from Laberinto import *
+
 class Icono (pygame.sprite.Sprite):
     """
     ## Class Icono(pygame.sprite.Sprite)
@@ -98,9 +99,6 @@ def cheaquear_cierre_ventana():
         if eventos.type == QUIT:
             sys.exit(0)
     return 0
-
-
-#def Visualizar(laberinto, robot, icono):
 #######################MAIN######################################
 """
 IMPORTANTE:
@@ -109,7 +107,7 @@ DE ACA EN ADELANTE, TODO LO QUE ESTA RODEADO DE #### ES PORQUE
 NO VA EN EL MAIN POSTA, SINO QUE DEBE SER REEMPLAZADO
 """
 
-
+"""
 from Laberinto import *
 from Robot import *
 #from Visualizacion import *
@@ -210,3 +208,4 @@ while True:
     #########
     i += 1  #
     #########
+"""
