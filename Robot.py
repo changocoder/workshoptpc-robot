@@ -34,6 +34,7 @@ class Robot(object):
         self.velocidad= 0
         self.esquina_atras_izquierda= 0
 
+
     def set_sensor(self, sensor):
         """
         la variable sensor es tipo lista de 4 elementos: [ , , , ] y
@@ -91,14 +92,17 @@ class Robot(object):
                 #este pass stands for "seguir por donde venía"
                 #self.dirección = self.direccion
                 print("segundo")
+            else:
+                self.turn_left()
+
         else:
-            print("ptercero")
+            print("tercero")
             if(sensor_left == 0):
                 print("cuarto")
                 """permutación cíclica en el atributo dirección, mover el 1 al
                 indice anterior al que está moverse hacia la izquierda
                 """
-                self.direccion = self.turn_left(self.direccion)
+                self.turn_left()
 
             else:
                 print("quinto")
@@ -108,7 +112,7 @@ class Robot(object):
                     moverse hacia la derecha
                     permutación cíclica en dirección , mover el 1 al indice j-3
                     """
-                    self.direccion = self.turn_right(self.direccion)
+                    self.turn_right()
 
                 else:
                     print("fuck_it")
@@ -116,11 +120,11 @@ class Robot(object):
                     moverse hacia atrás
                     permutación cíclica en dirección, mover el 1 al índice j-2
                     """
-                    self.direccion = self.turn_back(self.direccion)
+                    self.turn_back()
 
         print("self.direccion: ", self.direccion)
 
-    def turn_right(self, direccion):
+    def turn_right(self):
         """
         turn_right(direccion):
             Toma la lista dirección y hace una permutacion cíclica de manera
@@ -134,10 +138,13 @@ class Robot(object):
 
             lo mismo para turn_back y turn_left
         """
-        return [direccion[i-1] for i in range(len(direccion))]
+        direccion = self.direccion
+        self.direccion = [direccion[i-1] for i in range(len(direccion))]
 
-    def turn_back(self, direccion):
-        return [direccion[i-2] for i in range(len(direccion))]
+    def turn_back(self):
+        direccion = self.direccion
+        self.direccion = [direccion[i-2] for i in range(len(direccion))]
 
-    def turn_left(self, direccion):
-        return [direccion[i-3] for i in range(len(direccion))]
+    def turn_left(self):
+        direccion = self.direccion
+        self.direccion = [direccion[i-3] for i in range(len(direccion))]
