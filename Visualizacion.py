@@ -60,8 +60,8 @@ class Icono (pygame.sprite.Sprite):
 
     def set_posicion(self, posicion):
         # Se usa para setear posicion inicial del robot
-        self.rect.left = posicion[0] * pixelSize
-        self.rect.top = posicion[1] * pixelSize
+        self.rect.left = posicion[0] * self.pixelSize
+        self.rect.top = posicion[1] * self.pixelSize
 
     def set_tamano(self, tamano):
         # setea el tamano de la imagen, en pixeles
@@ -99,15 +99,40 @@ def cheaquear_cierre_ventana():
             sys.exit(0)
     return 0
 
+def crear_visualizacion_mapa(pantalla,laberinto, pixelSize):
+    """
+    INPUT:
+      pantalla  : objeto de clase pygame.Surface()
+      laberinto : objeto de clase Laberinto()
+      pixelSize : int
 
-#def Visualizar(laberinto, robot, icono):
+    OUTPUT:
+      imagen de background : objeto de clase pygame.Surface.convert()
+    """
+    NEGRO = (0, 0, 0)
+    BLANCO = (255, 255, 255)
+    unos_mapa = np.where(laberinto.mapa == 1)
+    pantalla.fill(BLANCO)
+    for j in range(len(unos_mapa[0])):
+        bloque_pos  = (unos_mapa[0][j]*pixelSize, unos_mapa[1][j]*pixelSize)
+        bloque_size = (pixelSize, pixelSize)
+        bloque = pygame.Rect(bloque_pos, bloque_size)
+        pygame.draw.rect(pantalla, NEGRO, bloque)
+    # guardo el laberinto como una IMAGEN en la variable background
+    # sirve para imprimir el laberinto
+    return pantalla.convert()
+
+def visualizar_mapa(pantalla, background):
+    pantalla.blit(background,[0,0])
+    pygame.display.flip()
+
 #######################MAIN######################################
 """
 IMPORTANTE:
 
 DE ACA EN ADELANTE, TODO LO QUE ESTA RODEADO DE #### ES PORQUE
 NO VA EN EL MAIN POSTA, SINO QUE DEBE SER REEMPLAZADO
-"""
+
 
 
 from Laberinto import *
@@ -210,3 +235,4 @@ while True:
     #########
     i += 1  #
     #########
+"""
