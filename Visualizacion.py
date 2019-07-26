@@ -5,6 +5,7 @@ from Laberinto import *
 
 class Icono (pygame.sprite.Sprite):
     """
+    @author  Santiago Maldonado Ochoa
     ## Class Icono(pygame.sprite.Sprite)
     #Atributos
      ---------
@@ -52,7 +53,7 @@ class Icono (pygame.sprite.Sprite):
         self.pixelSize = 20
         self.rect = pygame.Rect((1,1),(1,1))
         self.imagen = pygame.image.load('alien.jpeg')
-        self.velocidad = 0.1
+        self.velocidad = 1
         self.direccion = (1,0)
 
     def set_pixelSize(self, pixelSize):
@@ -81,7 +82,7 @@ class Icono (pygame.sprite.Sprite):
         # le doy un numero que se multiplica por la velocidad que viene por defecto
         self.velocidad = self.velocidad * velocidad
 
-    def set_direccion(self, n):
+    def set_direccion(self,n):
         # direccion en la cual se debe mover
         # direccion: (int, int)
         # valores posibles: (0,1), (-1,0), etc...
@@ -112,112 +113,3 @@ def cheaquear_cierre_ventana():
             sys.exit(0)
     return 0
 #######################MAIN######################################
-"""
-IMPORTANTE:
-
-DE ACA EN ADELANTE, TODO LO QUE ESTA RODEADO DE #### ES PORQUE
-NO VA EN EL MAIN POSTA, SINO QUE DEBE SER REEMPLAZADO
-"""
-
-"""
-from Laberinto import *
-from Robot import *
-#from Visualizacion import *
-import sys
-#Importo asi para usar pygame.event (https://www.pygame.org/docs/ref/locals.html)
-
-#----------INPUTS---------------------------------------------------------------
-dim_x = 30
-dim_y = 20
-
-pixelSize = 20
-
-velocidad_inicial = 1
-#-------------------------------------------------------------------------------
-
-# Definimos algunos colores
-#NEGRO = (0, 0, 0)              DESCOMENTAR ESTO EN EL
-#BLANCO = (255, 255, 255)       CODIGO FINAL!!!!
-########################
-BLANCO = (0, 0, 0)     #
-NEGRO = (255, 255, 255)#
-########################
-WIDTH = pixelSize * dim_x
-HEIGHT = pixelSize * dim_y
-
-#----------------------INICIALIZACION DE GRAFICOS-------------------------------
-pygame.init()
-pantalla = pygame.display.set_mode([WIDTH, HEIGHT])
-pygame.display.set_caption("Ada-BOT Maze")
-#-------------------------------------------------------------------------------
-
-#----------------------CREACION DEL LABERINTO-----------------------------------
-#############################################
-# invento un mapa random                    #
-mapa = np.zeros((dim_y, dim_x))             #
-mapa[5:16,3] = 1                            #
-mapa[15,3:11] = 1                           #
-mapa[5:16,10] = 1                           #
-#############################################
-no_ceros = np.nonzero(mapa)
-pantalla.fill(BLANCO)
-for j in range(len(no_ceros[0])):
-    bloque_pos  = (no_ceros[0][j]*pixelSize, no_ceros[1][j]*pixelSize)
-    bloque_size = (pixelSize, pixelSize)
-    bloque = pygame.Rect(bloque_pos, bloque_size)
-    pygame.draw.rect(pantalla, NEGRO, bloque)
-# guardo el laberinto como una IMAGEN en la variable background
-# sirve para imprimir el laberinto
-background = pantalla.convert()
-#-------------------------------------------------------------------------------
-
-#----------------------CREACION DEL ICONO ROBOT----------------------------------
-icono = Icono()
-icono.set_imagen("./alien.jpeg")
-icono.set_posicion((5,3))
-icono.set_tamano((pixelSize, pixelSize))
-icono.set_velocidad(velocidad_inicial)
-# esto es: grafica icono.imagen en el rectangulo icono.rect
-pantalla.blit(icono.imagen,icono.rect)
-pygame.display.flip()
-# Espero un segundo antes de arrancar
-pygame.time.wait(1000)
-#-------------------------------------------------------------------------------
-
-##############invento un movimiento############
-nuevo = [(15,3), (15,10), (5,10)]    #
-nueva_dir = [(1,0), (0,1), (-1,0)]            #
-i = 0                                         #
-###############################################
-
-while True:
-    cheaquear_cierre_ventana()
-    #########################################
-    # ACA VA EL BLOQUE QUE TOMA LA DECISION.#
-    # ME DEVUELVE UNA DIRECCION             #
-    icono.set_direccion(nueva_dir[i])       # Direccion inventada
-    # ME DEVUELVE UNA NUEVA POSICION        #
-    new_xy = nuevo[i]                       #
-    #########################################
-    new_xy = (new_xy[0]*pixelSize, new_xy[1]*pixelSize)
-    posicion = icono.get_posicion()
-    reloj = pygame.time.Clock()
-    while posicion != new_xy:
-        cheaquear_cierre_ventana()
-        tiempo = reloj.tick(60)
-        #print(posicion, new_xy)
-        #print(tiempo)
-        icono.mover(tiempo)
-        posicion = icono.get_posicion()
-        # para dar efecto de movimiento, debo pisar el grafico anterior
-        # es decir, vuelvo a graficar el laberinto y arriba grafico
-        # con la nueva posicion
-        pantalla.blit(background,[0,0])
-        pygame.display.flip()
-        pantalla.blit(icono.imagen, icono.rect)
-        pygame.display.flip()
-
-    #########
-    i += 1  #
-    #########
-"""
