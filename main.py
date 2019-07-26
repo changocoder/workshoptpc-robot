@@ -18,7 +18,7 @@ ada_bot = Robot()
 laberinto = Laberinto(dim_x,dim_y)
 #Construir el laberinto
 laberinto.generar_obstaculos()
-laberinto.generar_ada(ada_bot)
+laberinto.generar_ada()
 #----------------------INICIALIZACION DE GRAFICOS-------------------------------
 WIDTH = pixelSize * (dim_x+2)
 HEIGHT = pixelSize * (dim_y+2)
@@ -29,42 +29,37 @@ pygame.display.set_caption("Ada-BOT Maze")
 
 
 #----------------------Visualizacion DEL LABERINTO------------------------------
-# imagen de fondo
+# Creo el fondo espacial
 fondo = Icono()
 fondo.set_imagen('space.png')
 fondo.set_tamano((WIDTH, HEIGHT))
 pantalla.blit(fondo.imagen, (0,0))
 
-
-# imagen para los bloques
+# Creo los iconos metalicos para el laberinto
 metal = Icono()
 metal.set_imagen('metal.jpg')
 metal.set_tamano((pixelSize, pixelSize))
 
+# Dibujo el laberinto
 unos_mapa = np.where(laberinto.mapa == 1)
 for j in range(len(unos_mapa[0])):
     bloque_pos  = (unos_mapa[1][j]*pixelSize, unos_mapa[0][j]*pixelSize)
     bloque_size = (pixelSize, pixelSize)
     bloque = pygame.Rect(bloque_pos, bloque_size)
-    #pygame.draw.rect(pantalla, BLANCO, bloque)
     pantalla.blit(metal.imagen, bloque)
-#pinto el inicio
+
+# Coloco un icono de Nave en el inicio del laberinto
 nave = Icono()
 nave.set_imagen('nave.png')
 nave.set_tamano((pixelSize, pixelSize))
 inicio_pos  = (laberinto.y_ini*pixelSize, laberinto.x_ini*pixelSize)
 inicio = pygame.Rect(inicio_pos, bloque_size)
 pantalla.blit(nave.imagen, inicio)
-#fin_pos  = (laberinto.y_ini*pixelSize, laberinto._ini*pixelSize)
-#fin = pygame.Rect(fin_pos, bloque_size)
-#pygame.draw.rect(pantalla, [0, 255, 0], fin)
 
 # guardo el laberinto como una IMAGEN en la variable background
 # sirve para imprimir el laberinto
 background = pantalla.convert()
 #-------------------------------------------------------------------------------
-
-
 
 
 print ("lala\n",laberinto.mapa)
@@ -100,17 +95,17 @@ icono.set_velocidad(velocidad_inicial)
 
 pantalla.blit(icono.imagen, icono.rect)
 pygame.display.flip()
+#------------------------------------------------------------------------------
 
-# esto es: grafica icono.imagen en el rectangulo icono.rect
-#pantalla.blit(icono.imagen,icono.rect)
-#pygame.display.flip()
-# Espero un segundo antes de arrancar
+# espero antes de empezar a resolver el laberinto
 pygame.time.wait(500)
 #-------------------------------------------------------------------------------
-posicion = (laberinto.pos_robot_x*pixelSize, laberinto.pos_robot_y*pixelSize)
+
 salida = "false"
 while salida != "true":  # si encuentra alguna pared se termina la creacción del camino
     cheaquear_cierre_ventana()
+
+    ########### ALGORITMO DE TOMA DE DECISION ##################
     sensor = laberinto.get_vecinos()
     print(sensor)
     ada_bot.set_sensor(sensor)
@@ -122,30 +117,10 @@ while salida != "true":  # si encuentra alguna pared se termina la creacción de
     print ("adadespues\n",ada_bot.direccion)
     laberinto.actualizar_laberinto(n)
     print ("segpaso\n",laberinto.mapa)
+    ############################################################
 
     # Visualizacion:
-    #icono.set_direccion(n)
     new_xy = (laberinto.pos_robot_x, laberinto.pos_robot_y)
-    #reloj = pygame.time.Clock()
-    print(posicion, new_xy, icono.direccion)
-    """
-    # saco lo que se ve "continuo"
-    while icono.condicion:
-        cheaquear_cierre_ventana()
-        tiempo = reloj.tick(60)
-        #print(posicion, new_xy)
-        #print(tiempo)
-        icono.mover(tiempo)
-        posicion = icono.get_posicion()
-        # para dar efecto de movimiento, debo pisar el grafico anterior
-        # es decir, vuelvo a graficar el laberinto y arriba grafico
-        # con la nueva posicion
-        pantalla.blit(background,[0,0])
-        pygame.display.flip()
-        pantalla.blit(icono.imagen, icono.rect)
-        pygame.display.flip()
-    """
-    print(posicion, new_xy)
     icono.set_posicion(new_xy)
     # para dar efecto de movimiento, debo pisar el grafico anterior
     # es decir, vuelvo a graficar el laberinto y arriba grafico
@@ -154,7 +129,8 @@ while salida != "true":  # si encuentra alguna pared se termina la creacción de
     pygame.display.flip()
     pantalla.blit(icono.imagen, icono.rect)
     pygame.display.flip()
-    pygame.time.wait(300)
+
+    pygame.time.wait(100)
     salida=laberinto.controlar_escape()
 
 
@@ -163,9 +139,8 @@ pygame.display.flip()
 pantalla.blit(icono.imagen, icono.rect)
 pygame.display.flip()
 
-
 print("SALIO!")
+
+# Este loop es para mantener la ventana abierta hasta que alguien la cierre
 while True:
     cheaquear_cierre_ventana()
-
-#carImg = pygame.image.load('imagen_ginal.png')

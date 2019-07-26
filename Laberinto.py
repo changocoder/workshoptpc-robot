@@ -29,7 +29,8 @@ class Laberinto(object):
         self.mapa = np.full((self.dim_x + 2, self.dim_y + 2), 2)
         self.pos_robot_x=0
         self.pos_robot_y=0
-        self.X=(0,0)                             
+        self.ada_robot = None
+        self.X=(0,0)
     def generar_solucion(self):
         """
         @return  : el camino solución del laberinto
@@ -105,8 +106,15 @@ class Laberinto(object):
         self.pos_robot_y= pos_robot[1][0][0]
         n_0=self.mapa[self.pos_robot_x-1][self.pos_robot_y]
         n_1=self.mapa[self.pos_robot_x][self.pos_robot_y+1]
-        n_2=self.mapa[self.pos_robot_x+1][self.pos_robot_y]
-        n_3=self.mapa[self.pos_robot_x][self.pos_robot_y-1]
+        try:
+            n_2=self.mapa[self.pos_robot_x+1][self.pos_robot_y]
+        except IndexError:
+            # EN CASO DE QUE HAYA ENCONTRADO LA SALIDA
+            n_2=1
+        try:
+            n_3=self.mapa[self.pos_robot_x][self.pos_robot_y-1]
+        except IndexError:
+            n_3=1
         self.vecinos[0]=n_0
         self.vecinos[1]=n_1
         self.vecinos[2]=n_2
@@ -175,18 +183,19 @@ class Laberinto(object):
         return salida
 
 
-    def generar_estructura_laberinto(self):
+    def generar_estructura_laberinto(self, robot):
         """
         Este metodo devuelve el array para poder generar el laberinto
         @return  :self.mapa
         @author Hugo Chanampe
         """
+        self.ada_robot = robot
         self.generar_obstaculos()
-        return self.mapa
+        self.generar_ada()
 
 
 
-    def generar_ada(self, ada_robot):
+    def generar_ada(self):
         """
         @param Robot ada_robot :
         @return  : Inicializar el robot en el laberinto
@@ -223,10 +232,10 @@ class Laberinto(object):
         pos_robot=list(zip(np.where(self.mapa==3))) #Busca en el mapa donde esta el robot y lo mete en una lista
         self.pos_robot_x= pos_robot[0][0][0]
         self.pos_robot_y= pos_robot[1][0][0]
-        return (self.pos_robot_x, self.pos_robot_y) 
+        return (self.pos_robot_x, self.pos_robot_y)
 
     # Crear un laberinto aleatorio en Python3 usando el algoritmo de recorrido en profundidad.
-    # 
+    #
     # Autor: Lucas Farigliano
     # Fecha: 2019/07/26
     def constructor_laberinto_2(self):
@@ -250,7 +259,3 @@ class Laberinto(object):
             self.mapa[h][k] = 0  # Tumbar el muro que las separa
 #            self.laberinto_2_visitar(h, k)               # Visitar vecina recursivamente
 #
-
-
-
-
