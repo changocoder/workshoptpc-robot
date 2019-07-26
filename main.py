@@ -7,10 +7,10 @@ from pygame.locals import *
 #Importo asi para usar pygame.event (https://www.pygame.org/docs/ref/locals.html)
 
 #-------------------INPUTS------------------------------------------------------
-dim_x = 10
-dim_y = 10
+dim_x = 15
+dim_y = 15
 
-pixelSize = 20
+pixelSize = 40
 velocidad_inicial = 0.1
 BLANCO = (255, 255, 255)
 NEGRO = (0,0,0)
@@ -80,6 +80,7 @@ print(ada_bot.direccion)
 #----------------------CREACION DEL ICONO ROBOT----------------------------------
 icono = Icono()
 icono.set_imagen("./alien.jpeg")
+icono.set_pixelSize(pixelSize)
 icono.set_posicion((laberinto.pos_robot_x,laberinto.pos_robot_y))
 icono.set_tamano((pixelSize, pixelSize))
 icono.set_velocidad(velocidad_inicial)
@@ -91,7 +92,7 @@ pygame.display.flip()
 #pantalla.blit(icono.imagen,icono.rect)
 #pygame.display.flip()
 # Espero un segundo antes de arrancar
-pygame.time.wait(1000)
+pygame.time.wait(500)
 #-------------------------------------------------------------------------------
 posicion = (laberinto.pos_robot_x*pixelSize, laberinto.pos_robot_y*pixelSize)
 salida = "false"
@@ -140,13 +141,15 @@ while salida != "true":  # si encuentra alguna pared se termina la creacción de
     pygame.display.flip()
     pantalla.blit(icono.imagen, icono.rect)
     pygame.display.flip()
-    pygame.time.wait(1000)
+    pygame.time.wait(300)
     salida=laberinto.controlar_escape()
+
+
 pantalla.blit(background,[0,0])
 pygame.display.flip()
 pantalla.blit(icono.imagen, icono.rect)
 pygame.display.flip()
-pygame.time.wait(1000)
+pygame.time.wait(10000)
 
 
 #carImg = pygame.image.load('imagen_ginal.png')
