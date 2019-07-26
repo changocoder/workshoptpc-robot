@@ -46,16 +46,56 @@ class Visualizacion(object):
         def visualizar_mapa(self):
             self.pantalla.blit(self.background,[0,0])
 
-####################### funciones ######################################
+    def set_posicion(self, posicion):
+        # Se usa para setear posicion inicial del robot
+        self.rect.left = posicion[1] * self.pixelSize
+        self.rect.top = posicion[0] * self.pixelSize
 
+    def set_tamano(self, tamano):
+        # setea el tamano de la imagen, en pixeles
+        # es conveniente darle como entrada: (pixelSize, pixelSize)
+        imagen = self.imagen.convert_alpha()
+        self.imagen = pygame.transform.scale(imagen, tamano)
+        self.rect.size = tamano
+
+    def set_imagen(self,archivo):
+        # archivo es un string con el nomre de la imagen. ej: /home/robot.jpg
+        self.imagen = pygame.image.load(archivo)
+
+    def set_velocidad(self,velocidad):
+        # le doy un numero que se multiplica por la velocidad que viene por defecto
+        self.velocidad = self.velocidad * velocidad
+
+    def set_direccion(self, n):
+        # direccion en la cual se debe mover
+        # direccion: (int, int)
+        # valores posibles: (0,1), (-1,0), etc...
+        if n==0:
+            self.direccion = (-1,0)
+        if n==1:
+            self.direccion = (0,1)
+        if n==2:
+            self.direccion = (1,0)
+        if n==3:
+            self.direccion = (0,-1)
+
+    def mover(self, tiempo):
+        self.rect.left += self.direccion[0] * self.velocidad * tiempo
+        self.rect.top  += self.direccion[1] * self.velocidad * tiempo
+
+    def get_posicion(self):
+        # posicion actual
+        return (self.rect.left, self.rect.top)
+
+    def condicion(self):
+        pass
+
+####################### funciones ######################################
 def cheaquear_cierre_ventana():
     for eventos in pygame.event.get():
         if eventos.type == QUIT:
             sys.exit(0)
     return 0
-
-
-
 #######################MAIN######################################
 """
 IMPORTANTE:
