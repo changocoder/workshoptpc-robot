@@ -149,8 +149,10 @@ pantalla.blit(background,[0,0])
 pygame.display.flip()
 pantalla.blit(icono.imagen, icono.rect)
 pygame.display.flip()
-pygame.time.wait(10000)
 
+
+print("SALIO!")
+while True:
+    cheaquear_cierre_ventana()
 
 #carImg = pygame.image.load('imagen_ginal.png')
-print("SALIO!")
