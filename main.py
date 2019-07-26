@@ -1,5 +1,4 @@
 from Laberinto import *
-from Obstaculo import *_
 from Robot import *
 from Visualizacion import *
 import pygame, sys
