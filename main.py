@@ -6,17 +6,17 @@ from pygame.locals import *
 #Importo asi para usar pygame.event (https://www.pygame.org/docs/ref/locals.html)
 
 #-------------------INPUTS------------------------------------------------------
-dim_x = 15
-dim_y = 15
+dim_x = 30
+dim_y = 30
 
-pixelSize = 50
+pixelSize = 20
 velocidad_inicial = 0.1
 BLANCO = (255, 255, 255)
 NEGRO = (0,0,0)
 #-------------------------------------------------------------------------------
 ada_bot = Robot()
 laberinto = Laberinto(dim_x,dim_y)
-#Construir el laberinto  
+#Construir el laberinto
 '''
     Dos formas de armar el laberinto
 #laberinto.generar_obstaculos()

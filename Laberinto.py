@@ -1,5 +1,4 @@
 # coding=UTF-8
-
 from Robot import *
 from Obstaculo import *
 
@@ -44,8 +43,10 @@ class Laberinto(object):
         que se encuentre en un entorno de (0,0,0,0) entonces sigue con el movimiento que traia
         (testear si esa idea esta bien)
         """
-        self.x_ini=randrange(1,self.dim_x)   #posición inicial randon sin contar paredes
-        self.y_ini=randrange(1,self.dim_y)
+        #self.x_ini=randrange(1,self.dim_x)   #posición inicial randon sin contar paredes
+        #self.y_ini=randrange(1,self.dim_y)
+        self.x_ini=int(self.dim_x/2.0)   #posición inicial randon sin contar paredes
+        self.y_ini=int(self.dim_y/2.0)
         self.mapa[self.x_ini][self.y_ini]=0
         i=0 #contador de pasos en el while
         x=self.x_ini
@@ -264,4 +265,4 @@ class Laberinto(object):
             if (h, k) in self.X: continue    # ...que no haya sido visitada:
             self.mapa[h][k] = randint(0,1)  # Tumbar el muro que las separa
 #            self.laberinto_2_visitar(h, k)               # Visitar vecina recursivamente
-#       
+#
