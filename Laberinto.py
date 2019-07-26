@@ -54,7 +54,7 @@ class Laberinto(object):
         while salida != "true":  # si encuentra alguna pared se termina la creacción del camino
             i+=1
             n=randrange(4) #0=arriba 1=derecha 2=abajo 3=izquierda
-            if i<20: # este if es para evitar que encuentre la solución rapido. (se puede mejorar la implementación)
+            if i<30: # este if es para evitar que encuentre la solución rapido. (se puede mejorar la implementación)
                 if n == 0 and (x-1) > 0 and self.mapa[x-1][y]!=0:
                     x -= 1
                 if n == 1 and (y+1) < (self.dim_y+1) and self.mapa[x][y+1]!=0:  # el +2 porque el arreglo tiene 2 extras a la dimension por las paredes
@@ -240,11 +240,17 @@ class Laberinto(object):
     # Fecha: 2019/07/26
     def constructor_laberinto_2(self):
         self.mapa = [[1]*(self.dim_y+2) for i in range (self.dim_x+2)]  # Tablero
-        for i, j in product(range(1,(self.dim_x+2), 3), range(1,(self.dim_y+2), 2)):
+        for i, j in product(range(1,(self.dim_x+2), 3), range(1,(self.dim_y+2), 3)):
             self.mapa[i][j] = 0                   # Poner celdas blancas
             self.X = set()                           # Conjunto de celdas visitadas
             self.laberinto_2_visitar(randint(0, self.dim_x + 2 - 1), randint(0, self.dim_y + 2 - 1))  # Inicio en celda aleatoria
         self.mapa=np.asarray(self.mapa)
+        self.mapa[0,:] = 1
+        self.mapa[:,0] = 1
+        self.mapa[(self.dim_x+1),:] = 1
+        self.mapa[:,(self.dim_y+1)] = 1
+        self.generar_solucion()
+        self.generar_ada()
 #    #return('\n'.join(''.join(fila) for fila in self.mapa))  # Unir símbolos en un str
     def laberinto_2_vecinos(self,i, j):                  # Conjunto de celdas aledañas a (i, j)
         if 0 < i: yield i - 1, j
@@ -256,6 +262,6 @@ class Laberinto(object):
         N = list(self.laberinto_2_vecinos(i, j)); shuffle(N)  # Desordenar celdas vecinas
         for h, k in N:                  # Para cada celda vecina
             if (h, k) in self.X: continue    # ...que no haya sido visitada:
-            self.mapa[h][k] = 0  # Tumbar el muro que las separa
+            self.mapa[h][k] = randint(0,1)  # Tumbar el muro que las separa
 #            self.laberinto_2_visitar(h, k)               # Visitar vecina recursivamente
-#
+#       

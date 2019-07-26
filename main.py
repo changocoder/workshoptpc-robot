@@ -16,9 +16,16 @@ NEGRO = (0,0,0)
 #-------------------------------------------------------------------------------
 ada_bot = Robot()
 laberinto = Laberinto(dim_x,dim_y)
-#Construir el laberinto
-laberinto.generar_obstaculos()
-laberinto.generar_ada()
+#Construir el laberinto  
+'''
+    Dos formas de armar el laberinto
+#laberinto.generar_obstaculos()
+#laberinto.generar_ada()
+    o
+#laberinto.constructor_laberinto_2()
+'''
+laberinto.constructor_laberinto_2()
+
 #----------------------INICIALIZACION DE GRAFICOS-------------------------------
 WIDTH = pixelSize * (dim_x+2)
 HEIGHT = pixelSize * (dim_y+2)
@@ -62,7 +69,6 @@ background = pantalla.convert()
 #-------------------------------------------------------------------------------
 
 
-print ("lala\n",laberinto.mapa)
 sensor = laberinto.get_vecinos()
 ada_bot.set_sensor(sensor)
 first_front=sensor.index(0)
