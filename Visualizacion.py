@@ -3,48 +3,61 @@ import pygame, sys
 from pygame.locals import *
 from Laberinto import *
 
+class Icono (pygame.sprite.Sprite):
+    """
+    ## Class Icono(pygame.sprite.Sprite)
+    #Atributos
+     ---------
+      - rect      : *pygame.Rect*
+      Es un rectangulo sobre el que se imprime la imagen del robot
+      - imagen    : *pygame.Surface*
+      Imagen del robot
+      - velocidad : *float*
+      Velocidad fija en 0.1, se escala con el metodo set_velocidad
+      - direccion : *(int, int)* direccion en la que debe actualizar
 
-class Visualizacion(object):
+    #Metodos
+     ------
+      + set_posicion(posicion = *(int,int)*)
+      Determina la posicion de Icono.rect y de Icono.imagen
 
-    def __init__(self, pixelSize):
+      + set_tamano(tamano = *(int,int)*)
+      Define el tamano del icono del robot. La unidad de medida son *pixeles*. El input es una tupla (ancho,alto)
+
+      + set_imagen(archivo = *str*)
+      Determina la imagen a usar como icono del robot. Debo ingresar un string con la ubicacion y el nombre del archivo.
+      Ejemplo: set_imagen("/home/imagenes/robot.png")
+
+      + set_velocidad(velocidad = *float*)
+      Le doy un numero que se multiplica por la velocidad que viene por defecto. Es decir, escala la velocidad. Sirve, por ejemplo, para duplicar
+
+      + set_direccion(direccion = *(int, int)*)
+      Direccion en la cual se debe mover el icono. valores posibles: (0,1), (-1,0), etc...
+
+      + mover(tiempo = *pygame.time.Clocl().tick(60)*):
+      Dada la velocidad y el tiempo definido por *pygame*, realiza el movimiento. Se usa dentro de un LOOP. El resultado es la modificacion de la poscion del icono.
+
+      + get_posicion()
+      Devuelve la posicion del iconoselfself.
+      OUTPUT: *(int, int)*
+
+    # Funciones
+      ---------
+
+      cheaquear_cierre_ventana()
+      Si se clickea el boton "x" de la ventana, se detiene el programa y se cierra la ventana.
+    """
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.pixelSize = 20
+        self.rect = pygame.Rect((1,1),(1,1))
+        self.imagen = pygame.image.load('alien.jpeg')
+        self.velocidad = 0.1
+        self.direccion = (1,0)
+
+    def set_pixelSize(self, pixelSize):
+        # pixelSize = int
         self.pixelSize = pixelSize
-        self.icono = pygame.Surface((1,1))
-        self.laberinto = laberinto
-        self.pantalla= pygame.Surface((1,1))
-        self.background = self.pantalla.convert()
-
-    def inicializar_visualizacion(self, dim_x, dim_y):
-        WIDTH = dim_x * self.pixelSize
-        HEIGHT = dim_y * self.pixelSize
-        pygame.init()
-        self.pantalla = pygame.display.set_mode([WIDTH, HEIGHT])
-        pygame.display.set_caption("Ada-BOT Maze")
-
-    def crear_visualizacion_mapa(self):
-        """
-        INPUT:
-          pantalla  : objeto de clase pygame.Surface()
-          laberinto : objeto de clase Laberinto()
-          pixelSize : int
-
-        OUTPUT:
-          imagen de background : objeto de clase pygame.Surface.convert()
-        """
-        NEGRO = (0, 0, 0)
-        BLANCO = (255, 255, 255)
-        unos_mapa = np.where(laberinto.mapa == 1)
-        pantalla.fill(BLANCO)
-        for j in range(len(unos_mapa[0])):
-            bloque_pos  = (unos_mapa[0][j]*self.pixelSize, unos_mapa[1][j]*self.pixelSize)
-            bloque_size = (pixelSize, pixelSize)
-            bloque = pygame.Rect(bloque_pos, bloque_size)
-            pygame.draw.rect(pantalla, NEGRO, bloque)
-        # guardo el laberinto como una IMAGEN en la variable background
-        # sirve para imprimir el laberinto
-        self.background = pantalla.convert()
-
-        def visualizar_mapa(self):
-            self.pantalla.blit(self.background,[0,0])
 
     def set_posicion(self, posicion):
         # Se usa para setear posicion inicial del robot
@@ -102,9 +115,9 @@ IMPORTANTE:
 
 DE ACA EN ADELANTE, TODO LO QUE ESTA RODEADO DE #### ES PORQUE
 NO VA EN EL MAIN POSTA, SINO QUE DEBE SER REEMPLAZADO
+"""
 
-
-from icono import *
+"""
 from Laberinto import *
 from Robot import *
 #from Visualizacion import *
