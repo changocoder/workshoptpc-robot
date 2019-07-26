@@ -6,8 +6,8 @@ from pygame.locals import *
 #Importo asi para usar pygame.event (https://www.pygame.org/docs/ref/locals.html)
 
 #-------------------INPUTS------------------------------------------------------
-dim_x = 10
-dim_y = 10
+dim_x = 15
+dim_y = 15
 
 pixelSize = 50
 velocidad_inicial = 0.1

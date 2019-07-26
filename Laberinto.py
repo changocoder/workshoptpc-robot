@@ -53,7 +53,7 @@ class Laberinto(object):
         while salida != "true":  # si encuentra alguna pared se termina la creacción del camino
             i+=1
             n=randrange(4) #0=arriba 1=derecha 2=abajo 3=izquierda
-            if i<10: # este if es para evitar que encuentre la solución rapido. (se puede mejorar la implementación)
+            if i<20: # este if es para evitar que encuentre la solución rapido. (se puede mejorar la implementación)
                 if n == 0 and (x-1) > 0 and self.mapa[x-1][y]!=0:
                     x -= 1
                 if n == 1 and (y+1) < (self.dim_y+1) and self.mapa[x][y+1]!=0:  # el +2 porque el arreglo tiene 2 extras a la dimension por las paredes
