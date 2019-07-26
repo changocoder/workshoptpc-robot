@@ -122,28 +122,7 @@ while salida != "true":  # si encuentra alguna pared se termina la creacción de
     print ("segpaso\n",laberinto.mapa)
 
     # Visualizacion:
-    #icono.set_direccion(n)
     new_xy = (laberinto.pos_robot_x, laberinto.pos_robot_y)
-    #reloj = pygame.time.Clock()
-    print(posicion, new_xy, icono.direccion)
-    """
-    # saco lo que se ve "continuo"
-    while icono.condicion:
-        cheaquear_cierre_ventana()
-        tiempo = reloj.tick(60)
-        #print(posicion, new_xy)
-        #print(tiempo)
-        icono.mover(tiempo)
-        posicion = icono.get_posicion()
-        # para dar efecto de movimiento, debo pisar el grafico anterior
-        # es decir, vuelvo a graficar el laberinto y arriba grafico
-        # con la nueva posicion
-        pantalla.blit(background,[0,0])
-        pygame.display.flip()
-        pantalla.blit(icono.imagen, icono.rect)
-        pygame.display.flip()
-    """
-    print(posicion, new_xy)
     icono.set_posicion(new_xy)
     # para dar efecto de movimiento, debo pisar el grafico anterior
     # es decir, vuelvo a graficar el laberinto y arriba grafico
