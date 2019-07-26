@@ -33,6 +33,11 @@ metal = Icono()
 metal.set_imagen('metal.jpg')
 metal.set_tamano((pixelSize, pixelSize))
 
+fondo = Icono()
+fondo.set_imagen('space.png')
+fondo.set_tamano((WIDTH, HEIGHT))
+pantalla.blit(fondo.imagen, (0,0))
+
 unos_mapa = np.where(laberinto.mapa == 1)
 for j in range(len(unos_mapa[0])):
     bloque_pos  = (unos_mapa[1][j]*pixelSize, unos_mapa[0][j]*pixelSize)
@@ -147,7 +152,7 @@ while salida != "true":  # si encuentra alguna pared se termina la creacción de
     pygame.display.flip()
     pantalla.blit(icono.imagen, icono.rect)
     pygame.display.flip()
-    pygame.time.wait(300)
+    pygame.time.wait(100)
     salida=laberinto.controlar_escape()
 
 
