@@ -72,8 +72,10 @@ class Icono (pygame.sprite.Sprite):
         self.rect.size = tamano
 
     def set_imagen(self,archivo):
+        BLANCO = [255, 255, 255]
         # archivo es un string con el nomre de la imagen. ej: /home/robot.jpg
         self.imagen = pygame.image.load(archivo)
+        self.imagen.set_colorkey(BLANCO)
 
     def set_velocidad(self,velocidad):
         # le doy un numero que se multiplica por la velocidad que viene por defecto

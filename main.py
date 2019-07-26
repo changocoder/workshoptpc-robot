@@ -1,5 +1,4 @@
 from Laberinto import *
-from Obstaculo import *
 from Robot import *
 from Visualizacion import *
 import pygame, sys
@@ -7,10 +6,10 @@ from pygame.locals import *
 #Importo asi para usar pygame.event (https://www.pygame.org/docs/ref/locals.html)
 
 #-------------------INPUTS------------------------------------------------------
-dim_x = 15
-dim_y = 15
+dim_x = 10
+dim_y = 10
 
-pixelSize = 40
+pixelSize = 50
 velocidad_inicial = 0.1
 BLANCO = (255, 255, 255)
 NEGRO = (0,0,0)
@@ -30,21 +29,35 @@ pygame.display.set_caption("Ada-BOT Maze")
 
 
 #----------------------Visualizacion DEL LABERINTO------------------------------
+# imagen de fondo
+fondo = Icono()
+fondo.set_imagen('space.png')
+fondo.set_tamano((WIDTH, HEIGHT))
+pantalla.blit(fondo.imagen, (0,0))
+
+
+# imagen para los bloques
+metal = Icono()
+metal.set_imagen('metal.jpg')
+metal.set_tamano((pixelSize, pixelSize))
+
 unos_mapa = np.where(laberinto.mapa == 1)
-pantalla.fill(BLANCO)
 for j in range(len(unos_mapa[0])):
     bloque_pos  = (unos_mapa[1][j]*pixelSize, unos_mapa[0][j]*pixelSize)
     bloque_size = (pixelSize, pixelSize)
     bloque = pygame.Rect(bloque_pos, bloque_size)
-    pygame.draw.rect(pantalla, NEGRO, bloque)
+    #pygame.draw.rect(pantalla, BLANCO, bloque)
+    pantalla.blit(metal.imagen, bloque)
 #pinto el inicio
+nave = Icono()
+nave.set_imagen('nave.png')
+nave.set_tamano((pixelSize, pixelSize))
 inicio_pos  = (laberinto.y_ini*pixelSize, laberinto.x_ini*pixelSize)
 inicio = pygame.Rect(inicio_pos, bloque_size)
-pygame.draw.rect(pantalla, [255, 0, 0], inicio)
+pantalla.blit(nave.imagen, inicio)
 #fin_pos  = (laberinto.y_ini*pixelSize, laberinto._ini*pixelSize)
 #fin = pygame.Rect(fin_pos, bloque_size)
 #pygame.draw.rect(pantalla, [0, 255, 0], fin)
-
 
 # guardo el laberinto como una IMAGEN en la variable background
 # sirve para imprimir el laberinto
@@ -79,7 +92,7 @@ print(ada_bot.direccion)
 
 #----------------------CREACION DEL ICONO ROBOT----------------------------------
 icono = Icono()
-icono.set_imagen("./alien.jpeg")
+icono.set_imagen("./Ada_bot.png")
 icono.set_pixelSize(pixelSize)
 icono.set_posicion((laberinto.pos_robot_x,laberinto.pos_robot_y))
 icono.set_tamano((pixelSize, pixelSize))
