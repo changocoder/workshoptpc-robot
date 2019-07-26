@@ -29,6 +29,7 @@ class Laberinto(object):
         self.mapa = np.full((self.dim_x + 2, self.dim_y + 2), 2)
         self.pos_robot_x=0
         self.pos_robot_y=0
+        self.ada_robot = None
         self.X=(0,0)                             
     def generar_solucion(self):
         """
@@ -175,18 +176,19 @@ class Laberinto(object):
         return salida
 
 
-    def generar_estructura_laberinto(self):
+    def generar_estructura_laberinto(self, robot):
         """
         Este metodo devuelve el array para poder generar el laberinto
         @return  :self.mapa
         @author Hugo Chanampe
         """
+        self.ada_robot = robot
         self.generar_obstaculos()
-        return self.mapa
+        self.generar_ada()
+        
 
 
-
-    def generar_ada(self, ada_robot):
+    def generar_ada(self):
         """
         @param Robot ada_robot :
         @return  : Inicializar el robot en el laberinto
