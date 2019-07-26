@@ -17,8 +17,8 @@ NEGRO = (0,0,0)
 ada_bot = Robot()
 laberinto = Laberinto(dim_x,dim_y)
 #Construir el laberinto
-
-laberinto.generar_estructura_laberinto(ada_bot)
+laberinto.generar_obstaculos()
+laberinto.generar_ada()
 #----------------------INICIALIZACION DE GRAFICOS-------------------------------
 WIDTH = pixelSize * (dim_x+2)
 HEIGHT = pixelSize * (dim_y+2)
@@ -29,14 +29,6 @@ pygame.display.set_caption("Ada-BOT Maze")
 
 
 #----------------------Visualizacion DEL LABERINTO------------------------------
-# imagen de fondo
-fondo = Icono()
-fondo.set_imagen('space.png')
-fondo.set_tamano((WIDTH, HEIGHT))
-pantalla.blit(fondo.imagen, (0,0))
-
-
-# imagen para los bloques
 metal = Icono()
 metal.set_imagen('metal.jpg')
 metal.set_tamano((pixelSize, pixelSize))
@@ -59,6 +51,7 @@ pantalla.blit(nave.imagen, inicio)
 #fin = pygame.Rect(fin_pos, bloque_size)
 #pygame.draw.rect(pantalla, [0, 255, 0], fin)
 
+#iniciar_visualizacion(pantalla, laberinto, pixelSize)
 # guardo el laberinto como una IMAGEN en la variable background
 # sirve para imprimir el laberinto
 background = pantalla.convert()
@@ -70,11 +63,10 @@ background = pantalla.convert()
 print ("lala\n",laberinto.mapa)
 sensor = laberinto.get_vecinos()
 ada_bot.set_sensor(sensor)
-
 first_front=sensor.index(0)
 ada_bot.direccion[first_front] = 1
-#print(ada_bot.direccion)
-#print(sensor)
+print(ada_bot.direccion)
+print(sensor)
 # Primer paso
 while np.count_nonzero(sensor)==0:
     ada_bot.set_sensor(sensor)
