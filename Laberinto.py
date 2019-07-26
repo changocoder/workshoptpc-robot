@@ -4,7 +4,8 @@ from Robot import *
 from Obstaculo import *
 
 import numpy as np
-from random import randrange
+from random import randrange,shuffle, randint
+from itertools import product           # Producto cartesiano
 
 
 class Laberinto(object):
@@ -28,7 +29,7 @@ class Laberinto(object):
         self.mapa = np.full((self.dim_x + 2, self.dim_y + 2), 2)
         self.pos_robot_x=0
         self.pos_robot_y=0
-
+        self.X=(0,0)                             
     def generar_solucion(self):
         """
         @return  : el camino solución del laberinto
@@ -222,4 +223,34 @@ class Laberinto(object):
         pos_robot=list(zip(np.where(self.mapa==3))) #Busca en el mapa donde esta el robot y lo mete en una lista
         self.pos_robot_x= pos_robot[0][0][0]
         self.pos_robot_y= pos_robot[1][0][0]
-        return (self.pos_robot_x, self.pos_robot_y)
+        return (self.pos_robot_x, self.pos_robot_y) 
+
+    # Crear un laberinto aleatorio en Python3 usando el algoritmo de recorrido en profundidad.
+    # 
+    # Autor: Lucas Farigliano
+    # Fecha: 2019/07/26
+    def constructor_laberinto_2(self):
+        self.mapa = [[1]*(self.dim_y+2) for i in range (self.dim_x+2)]  # Tablero
+        for i, j in product(range(1,(self.dim_x+2), 3), range(1,(self.dim_y+2), 2)):
+            self.mapa[i][j] = 0                   # Poner celdas blancas
+            self.X = set()                           # Conjunto de celdas visitadas
+            self.laberinto_2_visitar(randint(0, self.dim_x + 2 - 1), randint(0, self.dim_y + 2 - 1))  # Inicio en celda aleatoria
+        self.mapa=np.asarray(self.mapa)
+#    #return('\n'.join(''.join(fila) for fila in self.mapa))  # Unir símbolos en un str
+    def laberinto_2_vecinos(self,i, j):                  # Conjunto de celdas aledañas a (i, j)
+        if 0 < i: yield i - 1, j
+        if i < (self.dim_x + 2 - 1): yield i + 1, j
+        if 0 < j: yield i, j - 1
+        if j < (self.dim_y + 2 - 1): yield i, j + 1
+    def laberinto_2_visitar(self,i, j):                  # Alg. de recorrido en profundidad:
+        self.X.add((i, j))                   # Marcar celda actual como visitada
+        N = list(self.laberinto_2_vecinos(i, j)); shuffle(N)  # Desordenar celdas vecinas
+        for h, k in N:                  # Para cada celda vecina
+            if (h, k) in self.X: continue    # ...que no haya sido visitada:
+            self.mapa[h][k] = 0  # Tumbar el muro que las separa
+#            self.laberinto_2_visitar(h, k)               # Visitar vecina recursivamente
+#
+
+
+
+
